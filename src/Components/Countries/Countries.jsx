@@ -7,7 +7,10 @@ const Countries = () => {
 
   const [countries, setCountries] = useState([]);
   const [visitedCountry, setVisitedCountry] = useState([]);
+  // const [visitedFlags, setVisitedFlags] = useState([]);
   const [visitedFlags, setVisitedFlags] = useState([]);
+  const [countryCapital, setCountryCapital] = useState([]);
+
 
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all')
@@ -16,10 +19,16 @@ const Countries = () => {
   }, [])
 
   const handleVisitedFlags = (flag) => {
-    console.log('adding flags')
-    const newVisitedFlags = [...visitedFlags, flag];
-    setVisitedFlags(newVisitedFlags)
+    const newVisitedFlag = [...visitedFlags, flag];
+    setVisitedFlags(newVisitedFlag)
   }
+
+  // const handleVisitedFlags = (flag) => {
+  //   console.log('adding flags')
+  //   const newVisitedFlags = [...visitedFlags, flag];
+  //   setVisitedFlags(newVisitedFlags)
+  // }
+
 
   const handleVisitedCountry = (country) => {
     console.log('mark as visited country')
@@ -27,6 +36,11 @@ const Countries = () => {
     const newVisitedCountries = [...visitedCountry, country]
     setVisitedCountry(newVisitedCountries)
 
+  }
+
+  const handleCountryCapital = (capital) => {
+    const newCountryCapital = [...countryCapital, capital]
+    setCountryCapital(newCountryCapital);
   }
   return (
     <>
@@ -47,7 +61,16 @@ const Countries = () => {
       <div className="flags-container">
         <h3>visited coutry flag{visitedFlags.length}</h3>
         {
+          // visitedFlags.map(flag => <img src={flag}></img>)
           visitedFlags.map(flag => <img src={flag}></img>)
+        }
+      </div>
+
+      {/* display country's capital  */}
+      <div>
+        <h3>countrys capital :{countryCapital.length}</h3>
+        {
+          countryCapital.map(capital => <li> {capital}</li>)
         }
       </div>
       <div className="country-container">
@@ -57,6 +80,7 @@ const Countries = () => {
             country={country}
             handleVisitedCountry={handleVisitedCountry}
             handleVisitedFlags={handleVisitedFlags}
+            handleCountryCapital={handleCountryCapital}
           ></Country>)
         }
       </div>
